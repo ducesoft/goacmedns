@@ -150,7 +150,7 @@ func (c Client) RegisterAccount(allowFrom []string) (Account, error) {
 	url := fmt.Sprintf("%s/register", c.baseURL)
 
 	// golangci-lint doesn't know it but postAPI() defers a body close.
-	respBody, resp, err := postAPI(url, body, nil) //nolint:bodyclose
+	respBody, resp, err := postAPI(url, body, map[string]string{"Content-Type": "application/jose+json"}) //nolint:bodyclose
 	if err != nil {
 		return Account{}, err
 	}
